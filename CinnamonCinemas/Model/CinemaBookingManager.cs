@@ -13,7 +13,8 @@ namespace CinnamonCinemas.Model
 
         public void MakeABooking(Customer customer, Movie movie, int noOfTickets)
         {
-            List<string> seat = movie.BookSeats(3);
+            List<string> seats = movie.BookSeats(3);
+            customer.AllocateTickets(seats);
         }
     }
 }
