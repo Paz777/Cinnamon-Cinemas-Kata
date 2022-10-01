@@ -50,6 +50,14 @@ namespace CinnamonCinemas.Tests
             seats1 = seatAllocationLinearService1.AllocateSeats(0);
             seats1.Count.Should().Be(0);
         }
+
+        [Test]
+        public void Given_All_Seats_Already_Allocated_Then_Zero_Seats_Seat_Allocation_Service_Should_Return_Empty_Seat_List()
+        {
+            seatAllocationLinearService1.AllocateSeats(15);
+            seats1 = seatAllocationLinearService1.AllocateSeats(0);
+            seats1.Count.Should().Be(0);
+        }
     }
 }
 
