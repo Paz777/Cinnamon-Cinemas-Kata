@@ -9,6 +9,7 @@ namespace CinnamonCinemas.Tests
     {
         private SeatAllocationLinearService seatAllocationLinearService1;
         private List<string> seats1;
+
         [SetUp]
         public void Setup()
         {
@@ -20,9 +21,8 @@ namespace CinnamonCinemas.Tests
         public void Given_Three_Seats_Seat_Allocation_Service_Allocates_Correct_Seats()
         {
             seats1 = seatAllocationLinearService1.AllocateSeats(3);
-            seats1[0].Should().Be("A1");
-            seats1[1].Should().Be("A2");
-            seats1[2].Should().Be("A3");
+            var expectedSeats = new List<string> { "A1", "A2", "A3" };
+            seats1.Should().Equal(expectedSeats);
         }
 
         [Test]
@@ -30,40 +30,33 @@ namespace CinnamonCinemas.Tests
         {
             seatAllocationLinearService1.AllocateSeats(5);
             seats1 = seatAllocationLinearService1.AllocateSeats(3);
-            seats1[0].Should().Be("B1");
-            seats1[1].Should().Be("B2");
-            seats1[2].Should().Be("B3");
+            var expectedSeats = new List<string> { "B1", "B2", "B3" };
         }
 
         [Test]
         public void Given_All_Seats_Already_Allocated_Seat_Allocation_Service_Should_Throw_Exception()
         {
             seats1 = seatAllocationLinearService1.AllocateSeats(15);
-            var ex = Assert.Throws<SeatAllocationException>(() => seatAllocationLinearService1.AllocateSeats(5));
-            ex.Message.Should().Be("All seats have been taken - no seats allocated");
+            seatAllocationLinearService1.Invoking(x => x.AllocateSeats(5))
+                .Should().Throw<SeatAllocationException>()
+                .WithMessage("All seats have been taken - no seats allocated");
         }
 
-        [Test]
-        public void Given_Seats_Already_Allocated_Then_Zero_Seats_Seat_Allocation_Service_Should_Return_Empty_Seat_List()
+        [TestCase(0, TestName = "Given_Zero_Seats_Seat_Allocation_Service_Should_Return_Empty")]
+        [TestCase(-4, TestName = "Given_Minus_Seats_Seat_Allocation_Service_Should_Return_Empty")]
+        public void Zero_Seats_Seat_Allocation_Service_Tests(int noOfSeats)
         {
-            seatAllocationLinearService1.AllocateSeats(10);
-            seats1 = seatAllocationLinearService1.AllocateSeats(0);
-            seats1.Count.Should().Be(0);
+            seats1 = seatAllocationLinearService1.AllocateSeats(noOfSeats);
+            seats1.Should().BeEmpty();
         }
 
-        [Test]
-        public void Given_All_Seats_Already_Allocated_Then_Zero_Seats_Seat_Allocation_Service_Should_Return_Empty_Seat_List()
+        [TestCase(10, 0, TestName = "Given_Some_Seats_Already_Allocated_Then_Zero_Seats_Seat_Allocation_Service_Should_Return_Empty")]
+        [TestCase(15, 0, TestName = "Given_All_Seats_Already_Allocated_Then_Zero_Seats_Seat_Allocation_Service_Should_Return_Empty")]
+        public void Some_Or_All_Seats_Allocated_Then_Zero_Seat_Allocation_Service_Tests(int seatsAllocated, int noSeatsToAllocate)
         {
-            seatAllocationLinearService1.AllocateSeats(15);
-            seats1 = seatAllocationLinearService1.AllocateSeats(0);
-            seats1.Count.Should().Be(0);
-        }
-
-        [Test]
-        public void Given_Minus_Seats__Seat_Allocation_Service_Should_Return_Empty_Seat_List()
-        {
-            seats1 = seatAllocationLinearService1.AllocateSeats(-4);
-            seats1.Count.Should().Be(0);
+            seatAllocationLinearService1.AllocateSeats(seatsAllocated);
+            seats1 = seatAllocationLinearService1.AllocateSeats(noSeatsToAllocate);
+            seats1.Should().BeEmpty();
         }
     }
 }
