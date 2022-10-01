@@ -1,7 +1,7 @@
 ﻿using System;
 namespace CinnamonCinemas.Interface
 {
-    public interface ISeatAllocatorService
+    public interface ISeatAllocationService
     {
 
         public List<string> AllocateSeats(int noOfSeats);

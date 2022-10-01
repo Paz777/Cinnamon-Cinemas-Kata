@@ -7,19 +7,19 @@ namespace CinnamonCinemas.Model
         public string Title { get; private set; }
         public DateTime Showing { get; private set; }
         public List<string> Seats { get; private set; }
-        private ISeatAllocatorService seatAllocatorService;
+        private ISeatAllocationService seatAllocationService;
 
-        public Movie(string title, DateTime showing, ISeatAllocatorService allocatorService)
+        public Movie(string title, DateTime showing, ISeatAllocationService seatAllocationService)
         {
             Title = title;
             Showing = showing;
-            seatAllocatorService = allocatorService;
+            this.seatAllocationService = seatAllocationService;
             Seats = new List<string>();
         }
 
         public List<string> BookSeats(int noOfSeats)
         {
-            Seats.AddRange(seatAllocatorService.AllocateSeats(noOfSeats));
+            Seats.AddRange(seatAllocationService.AllocateSeats(noOfSeats));
             return Seats;
         }
             

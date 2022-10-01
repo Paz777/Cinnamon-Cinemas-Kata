@@ -7,14 +7,14 @@ namespace CinnamonCinemas.Tests
 {
     public class MovieTests
     {
-        private ISeatAllocatorService seatAllocator1;
+        private ISeatAllocationService seatAllocationLinearService1;
         private Movie movie1;
 
         [SetUp]
         public void Setup()
         {
-            seatAllocator1 = new SeatAllocatorLinearService();
-            movie1 = new Movie("The Matrix", new DateTime(2022, 9, 30, 9, 0, 0), seatAllocator1);
+            seatAllocationLinearService1 = new SeatAllocationLinearService();
+            movie1 = new Movie("The Matrix", new DateTime(2022, 9, 30, 9, 0, 0), seatAllocationLinearService1);
         }
 
         [Test]
