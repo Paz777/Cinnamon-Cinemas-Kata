@@ -17,7 +17,7 @@ namespace CinnamonCinemas.Tests
         }
 
         [Test]
-        public void Given_No_Of_Seats_Seat_Allocation_Service_Allocates_Correct_Seats()
+        public void Given_Three_Seats_Seat_Allocation_Service_Allocates_Correct_Seats()
         {
             seats1 = seatAllocationLinearService1.AllocateSeats(3);
             seats1[0].Should().Be("A1");
@@ -26,7 +26,7 @@ namespace CinnamonCinemas.Tests
         }
 
         [Test]
-        public void Given_Some_Seats_Already_Allocated_Seat_Allocation_Service_Allocates_Correct_Seats()
+        public void Given_Seats_Already_Allocated_Then_Three_Seats_Seat_Allocation_Service_Allocates_Correct_Seats()
         {
             seatAllocationLinearService1.AllocateSeats(5);
             seats1 = seatAllocationLinearService1.AllocateSeats(3);
@@ -41,6 +41,14 @@ namespace CinnamonCinemas.Tests
             seats1 = seatAllocationLinearService1.AllocateSeats(15);
             var ex = Assert.Throws<SeatAllocationException>(() => seatAllocationLinearService1.AllocateSeats(5));
             ex.Message.Should().Be("All seats have been taken - no seats allocated");
+        }
+
+        [Test]
+        public void Given_Seats_Already_Allocated_Then_Zero_Seats_Seat_Allocation_Service_Should_Return_Empty_Seat_List()
+        {
+            seatAllocationLinearService1.AllocateSeats(10);
+            seats1 = seatAllocationLinearService1.AllocateSeats(0);
+            seats1.Count.Should().Be(0);
         }
     }
 }
