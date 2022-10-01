@@ -1,6 +1,7 @@
 ﻿using CinnamonCinemas.Model;
 using NUnit.Framework;
 using FluentAssertions;
+using CinnamonCinemas.Exceptions;
 
 namespace CinnamonCinemas.Tests
 {
@@ -22,6 +23,24 @@ namespace CinnamonCinemas.Tests
             seats1[0].Should().Be("A1");
             seats1[1].Should().Be("A2");
             seats1[2].Should().Be("A3");
+        }
+
+        [Test]
+        public void Given_Some_Seats_Already_Allocated_Seat_Allocation_Service_Allocates_Correct_Seats()
+        {
+            seatAllocationLinearService1.AllocateSeats(5);
+            seats1 = seatAllocationLinearService1.AllocateSeats(3);
+            seats1[0].Should().Be("B1");
+            seats1[1].Should().Be("B2");
+            seats1[2].Should().Be("B3");
+        }
+
+        [Test]
+        public void Given_All_Seats_Already_Allocated_Seat_Allocation_Service_Should_Throw_Exception()
+        {
+            seats1 = seatAllocationLinearService1.AllocateSeats(15);
+            var ex = Assert.Throws<SeatAllocationException>(() => seatAllocationLinearService1.AllocateSeats(5));
+            ex.Message.Should().Be("All seats have been taken - no seats allocated");
         }
     }
 }

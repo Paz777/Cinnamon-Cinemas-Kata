@@ -10,9 +10,11 @@
   <ItemGroup>
     <None Remove="Model\" />
     <None Remove="Interface\" />
+    <None Remove="Exception\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Model\" />
     <Folder Include="Interface\" />
+    <Folder Include="Exception\" />
   </ItemGroup>
 </Project>

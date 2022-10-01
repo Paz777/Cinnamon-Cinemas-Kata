@@ -1,4 +1,5 @@
 ﻿using System;
+using CinnamonCinemas.Exceptions;
 using CinnamonCinemas.Interface;
 
 namespace CinnamonCinemas.Model
@@ -6,6 +7,7 @@ namespace CinnamonCinemas.Model
     public class SeatAllocationLinearService : ISeatAllocationService
     {
         Stack<string> seatsToBeAllocated = new Stack<string>();
+        private int noSeatsAvailable = 0;
 
         public SeatAllocationLinearService() 
         {
@@ -26,9 +28,11 @@ namespace CinnamonCinemas.Model
 
         public List<string> AllocateSeats(int noOfSeats)
         {
-            List<string> seats = new List<string>();
+            List<string> seats = new();
             for (int i = 0; i < noOfSeats; i++)
             {
+                if (seatsToBeAllocated.Count == noSeatsAvailable)
+                    throw new SeatAllocationException("All seats have been taken - no seats allocated");
                 seats.Add(seatsToBeAllocated.Pop());
             }
             return seats;
