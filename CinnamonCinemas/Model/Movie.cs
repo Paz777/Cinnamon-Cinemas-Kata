@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CinnamonCinemas.Interface;
+
 namespace CinnamonCinemas.Model
 {
     public class Movie
@@ -8,6 +9,13 @@ namespace CinnamonCinemas.Model
         public List<string> Seats { get; private set; }
 
         public Movie(string title, DateTime showing)
+        {
+            Title = title;
+            Showing = showing;
+            Seats = new List<string>();
+        }
+
+        public Movie(string title, DateTime showing, ISeatAllocatorService seatAllocatorService)
         {
             Title = title;
             Showing = showing;

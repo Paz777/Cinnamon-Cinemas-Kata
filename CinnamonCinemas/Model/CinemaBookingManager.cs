@@ -15,6 +15,8 @@ namespace CinnamonCinemas.Model
         {
             List<string> seats = movie.BookSeats(3);
             customer.AllocateTickets(seats);
+            GetBookings.Add($"Billie has booked for {movie.Title} showing {movie.Showing.ToString("dd/M/yyyy")} " +
+                $"for {movie.Showing.ToString("h:mm tt")} seats {customer.Tickets}");
         }
     }
 }
