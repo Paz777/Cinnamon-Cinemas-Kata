@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using FluentAssertions;
 using CinnamonCinemas.Model;
+using CinnamonCinemas.Interface;
 
 namespace CinnamonCinemas.Tests;
 
@@ -18,7 +19,8 @@ public class CinemaBookingManagerTests
     public void Given_A_Customer_And_Movie_Showing_Book_The_No_Of_Tickets_And_Allocate_Seats()
     {
         Customer customer = new Customer("Billie");
-        Movie movie = new Movie("The Matrix", new DateTime(2022, 9, 30, 9, 0, 0));
+        ISeatAllocatorService eatAllocator1 = new SeatAllocatorLinearService();
+        Movie movie = new Movie("The Matrix", new DateTime(2022, 9, 30, 9, 0, 0), eatAllocator1);
         int noOfTickets = 3;
         cinemaBookingManager.MakeABooking(customer, movie, noOfTickets);
         List<string> bookings = cinemaBookingManager.GetBookings;

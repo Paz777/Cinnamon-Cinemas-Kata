@@ -4,7 +4,7 @@ namespace CinnamonCinemas.Interface
     public interface ISeatAllocatorService
     {
 
-        public void AllocateSeats();
+        public List<string> AllocateSeats(int noOfSeats);
     }
 }
 
