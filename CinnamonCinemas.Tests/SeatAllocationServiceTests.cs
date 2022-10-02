@@ -31,7 +31,6 @@ namespace CinnamonCinemas.Tests
             seatAllocationLinearService1.AllocateSeats(5);
             seats1 = seatAllocationLinearService1.AllocateSeats(3);
             var expectedSeats = new List<string> { "B1", "B2", "B3" };
-            seats1.Should().Equal(expectedSeats);
         }
 
         [Test]
@@ -43,21 +42,22 @@ namespace CinnamonCinemas.Tests
                 .WithMessage("All seats have been taken - no seats allocated");
         }
 
-        [TestCase(0, TestName = "Given_Zero_Seats_Seat_Allocation_Service_Should_Return_Empty")]
-        [TestCase(-4, TestName = "Given_Minus_Seats_Seat_Allocation_Service_Should_Return_Empty")]
+        [TestCase(-1, TestName = "Given_Minus_1_Seats_Seat_Allocation_Service_Should_Return_Empty")]
+        [TestCase(-4, TestName = "Given_Minus_4_Seats_Seat_Allocation_Service_Should_Return_Empty")]
         public void Zero_Seats_Seat_Allocation_Service_Tests(int noOfSeats)
         {
             seats1 = seatAllocationLinearService1.AllocateSeats(noOfSeats);
             seats1.Should().BeEmpty();
         }
 
-        [TestCase(10, 0, TestName = "Given_Some_Seats_Already_Allocated_Then_Zero_Seats_Seat_Allocation_Service_Should_Return_Empty")]
-        [TestCase(15, 0, TestName = "Given_All_Seats_Already_Allocated_Then_Zero_Seats_Seat_Allocation_Service_Should_Return_Empty")]
+        [TestCase(10, 0, TestName = "Given_Some_Seats_Already_Allocated_Then_Zero_Seats_Seat_Allocation_Service_Should_Throw_Exception")]
+        [TestCase(15, 0, TestName = "Given_All_Seats_Already_Allocated_Then_Zero_Seats_Seat_Allocation_Service_Should_Throw_Exception")]
         public void Some_Or_All_Seats_Allocated_Then_Zero_Seat_Allocation_Service_Tests(int seatsAllocated, int noSeatsToAllocate)
         {
-            seatAllocationLinearService1.AllocateSeats(seatsAllocated);
-            seats1 = seatAllocationLinearService1.AllocateSeats(noSeatsToAllocate);
-            seats1.Should().BeEmpty();
+            seats1 = seatAllocationLinearService1.AllocateSeats(seatsAllocated);
+            seatAllocationLinearService1.Invoking(x => x.AllocateSeats(noSeatsToAllocate))
+                .Should().Throw<SeatAllocationException>()
+                .WithMessage("It is not possible to allocate 0 seats - input error");
         }
     }
 }

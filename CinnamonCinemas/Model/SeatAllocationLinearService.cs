@@ -5,15 +5,15 @@ namespace CinnamonCinemas.Model
 {
     public class SeatAllocationLinearService : ISeatAllocationService
     {
-        Stack<string> seatsToBeAllocated = new Stack<string>();
+        Stack<string> seatsToBeAllocated = new();
         private int noSeatsAvailable = 0;
 
         public SeatAllocationLinearService() 
         {
-            SetUpStack();
+            SetUpSeatsToAllocate();
         }
 
-        private void SetUpStack()
+        private void SetUpSeatsToAllocate()
         {
             List<string> rows = new List<string>() { "C", "B", "A" };
             foreach (string row in rows)
@@ -27,6 +27,9 @@ namespace CinnamonCinemas.Model
 
         public List<string> AllocateSeats(int noOfSeats)
         {
+            if (noOfSeats == 0)
+                throw new SeatAllocationException("It is not possible to allocate 0 seats - input error");
+
             List<string> seats = new();
             for (int i = 0; i < noOfSeats; i++)
             {
@@ -34,6 +37,7 @@ namespace CinnamonCinemas.Model
                     throw new SeatAllocationException("All seats have been taken - no seats allocated");
                 seats.Add(seatsToBeAllocated.Pop());
             }
+
             return seats;
         }
     }

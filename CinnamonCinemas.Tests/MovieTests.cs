@@ -48,17 +48,9 @@ namespace CinnamonCinemas.Tests
         public void Given_A_Movie_Which_Has_Seats_Booked_And_Then_A_Booking_For_No_Seats_BookSeats_Method_Should_Return_Correct_Allocated_Seats()
         {
             movie1.BookSeats(3);
-            var seats1 = movie1.BookSeats(0);
-            var expectedSeats = new List<string> { "A1", "A2", "A3"};
-            seats1.Should().Equal(expectedSeats);
-        }
-
-        [Test]
-        public void zGiven_A_Movie_Which_Has_Seats_Booked_And_Then_A_Booking_For_No_Seats_BookSeats_Method_Should_Return_Correct_Allocated_Seats()
-        {
-            var seats1 = movie1.BookSeats(0);
-            var expectedSeats = new List<string> { "A1", "A2", "A3" };
-            seats1.Should().BeEmpty();
+            movie1.Invoking(x => x.BookSeats(0))
+                .Should().Throw<SeatAllocationException>()
+                .WithMessage("It is not possible to allocate 0 seats - input error");
         }
     }
 }
