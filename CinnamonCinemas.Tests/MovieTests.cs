@@ -20,7 +20,8 @@ namespace CinnamonCinemas.Tests
         [Test]
         public void Given_A_Movie_That_Has_A_Booking_For_3_Seats_BookSeats_Method_Should_Allocate_Seats()
         {
-            List<string> seats = movie1.BookSeats(3);
+            var seats = movie1.BookSeats(3);
+            
             seats[0].Should().Be("A1");
             seats[1].Should().Be("A2");
             seats[2].Should().Be("A3");
@@ -30,7 +31,7 @@ namespace CinnamonCinemas.Tests
         public void Given_A_Movie_Which_Has_Seats_Booked_And_Then_A_Booking_For_2_New_Seats_BookSeats_Method_Should_Allocate_Seats()
         {
             movie1.BookSeats(3);
-            List<string> seats = movie1.BookSeats(2);
+            var seats = movie1.BookSeats(2);
             seats[3].Should().Be("A4");
             seats[4].Should().Be("A5");
         }

@@ -31,6 +31,7 @@ namespace CinnamonCinemas.Tests
             seatAllocationLinearService1.AllocateSeats(5);
             seats1 = seatAllocationLinearService1.AllocateSeats(3);
             var expectedSeats = new List<string> { "B1", "B2", "B3" };
+            seats1.Should().Equal(expectedSeats);
         }
 
         [Test]
