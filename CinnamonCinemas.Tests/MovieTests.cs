@@ -2,6 +2,7 @@
 using FluentAssertions;
 using CinnamonCinemas.Model;
 using CinnamonCinemas.Interface;
+using CinnamonCinemas.Exceptions;
 
 namespace CinnamonCinemas.Tests
 {
@@ -20,20 +21,27 @@ namespace CinnamonCinemas.Tests
         [Test]
         public void Given_A_Movie_That_Has_A_Booking_For_3_Seats_BookSeats_Method_Should_Allocate_Seats()
         {
-            var seats = movie1.BookSeats(3);
-            
-            seats[0].Should().Be("A1");
-            seats[1].Should().Be("A2");
-            seats[2].Should().Be("A3");
+            var seats1 = movie1.BookSeats(3);
+            var expectedSeats = new List<string> { "A1", "A2", "A3" };
+            seats1.Should().Equal(expectedSeats);
         }
 
         [Test]
         public void Given_A_Movie_Which_Has_Seats_Booked_And_Then_A_Booking_For_2_New_Seats_BookSeats_Method_Should_Allocate_Seats()
         {
             movie1.BookSeats(3);
-            var seats = movie1.BookSeats(2);
-            seats[3].Should().Be("A4");
-            seats[4].Should().Be("A5");
+            var seats1 = movie1.BookSeats(2);
+            var expectedSeats = new List<string> { "A1", "A2", "A3", "A4", "A5" };
+            seats1.Should().Equal(expectedSeats);
+        }
+
+        [Test]
+        public void Given_A_Movie_With_All_Seats_Allocated_Then_BookSeats_Method_Should_Not_Book_More_Seats_But_Get_Exception()
+        {
+            movie1.BookSeats(15);
+            movie1.Invoking(x => x.BookSeats(2))
+                .Should().Throw<SeatAllocationException>()
+                .WithMessage("All seats have been taken - no seats allocated");
         }
     }
 }

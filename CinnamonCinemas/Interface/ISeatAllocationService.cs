@@ -1,5 +1,4 @@
-﻿using System;
-namespace CinnamonCinemas.Interface
+﻿namespace CinnamonCinemas.Interface
 {
     public interface ISeatAllocationService
     {

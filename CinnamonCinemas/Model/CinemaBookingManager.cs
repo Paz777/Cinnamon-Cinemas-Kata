@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CinnamonCinemas.Model
+﻿namespace CinnamonCinemas.Model
 {
     public class CinemaBookingManager
     {

@@ -1,5 +1,4 @@
-﻿using System;
-using CinnamonCinemas.Exceptions;
+﻿using CinnamonCinemas.Exceptions;
 using CinnamonCinemas.Interface;
 
 namespace CinnamonCinemas.Model
