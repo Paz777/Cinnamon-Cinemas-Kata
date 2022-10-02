@@ -43,6 +43,23 @@ namespace CinnamonCinemas.Tests
                 .Should().Throw<SeatAllocationException>()
                 .WithMessage("All seats have been taken - no seats allocated");
         }
+
+        [Test]
+        public void Given_A_Movie_Which_Has_Seats_Booked_And_Then_A_Booking_For_No_Seats_BookSeats_Method_Should_Return_Correct_Allocated_Seats()
+        {
+            movie1.BookSeats(3);
+            var seats1 = movie1.BookSeats(0);
+            var expectedSeats = new List<string> { "A1", "A2", "A3"};
+            seats1.Should().Equal(expectedSeats);
+        }
+
+        [Test]
+        public void zGiven_A_Movie_Which_Has_Seats_Booked_And_Then_A_Booking_For_No_Seats_BookSeats_Method_Should_Return_Correct_Allocated_Seats()
+        {
+            var seats1 = movie1.BookSeats(0);
+            var expectedSeats = new List<string> { "A1", "A2", "A3" };
+            seats1.Should().BeEmpty();
+        }
     }
 }
 
