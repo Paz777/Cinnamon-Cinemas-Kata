@@ -16,13 +16,8 @@ namespace CinnamonCinemas.Model
         private void SetUpSeatsToAllocate()
         {
             List<string> rows = new List<string>() { "C", "B", "A" };
-            foreach (string row in rows)
-            {
-                for (int i = 5; i > 0; i--)
-                {
-                    seatsToBeAllocated.Push(row + i);
-                }
-            }
+            List<int> seatNos = new List<int>() { 5, 4, 3, 2, 1 };
+            rows.ForEach(row => seatNos.ForEach(seatNo => seatsToBeAllocated.Push(row + seatNo)));
         }
 
         public List<string> AllocateSeats(int noOfSeats)
