@@ -19,8 +19,7 @@ namespace CinnamonCinemas.Model
 
         public List<string> BookSeats(int noOfSeats)
         {
-            Seats.AddRange(seatAllocationService.AllocateSeats(noOfSeats));
-            return Seats;
+            return seatAllocationService.AllocateSeats(noOfSeats);
         }
             
     }

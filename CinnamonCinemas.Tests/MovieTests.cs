@@ -31,7 +31,7 @@ namespace CinnamonCinemas.Tests
         {
             movie1.BookSeats(3);
             var seats1 = movie1.BookSeats(2);
-            var expectedSeats = new List<string> { "A1", "A2", "A3", "A4", "A5" };
+            var expectedSeats = new List<string> { "A4", "A5" };
             seats1.Should().Equal(expectedSeats);
         }
 
