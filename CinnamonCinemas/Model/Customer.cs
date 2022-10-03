@@ -12,7 +12,19 @@
         }
 
         public void AllocateTickets(List<string> seats)
-            => Tickets = string.Join(", ", seats);
+        {
+            Tickets += Tickets == string.Empty ? string.Join(", ", seats) : ", " + string.Join(", ", seats);
+        }
+            //Tickets = string.Join(", ", seats) : Tickets += ", " + string.Join(", ", seats);
+            //{
+            //    Tickets = string.Join(", ", seats);
+            //}
+            //else
+            //{
+            //    Tickets += ", " + string.Join(", ", seats);
+            //}
+        //}
+            
     }
 }
 
