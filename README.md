@@ -28,7 +28,7 @@ back
 
 The solution has 2 projects. The main implementation is separated into model, interface and exception. The test project has been split into movie tests, customer tests, cinema booking manager tests and seat allocaiton service tests.
 
-The Cinema Booking Manager class takes the customer, movie and the no of tickets to make the booking.
+The Cinema Booking Manager class takes the customer, movie and the no of tickets to make the booking. Inputs are currently done through tests.
 
 ## Project Development
 
@@ -43,5 +43,3 @@ Exceptions I implemented was SeatException.
 * Implement appropriate classes like Seat.
 * Persist data in database.
 * Implement a different Seat Allocation Service for seat selection.
-
-
