@@ -32,7 +32,7 @@ The Cinema Booking Manager class takes the customer, movie and the no of tickets
 
 ## Project Development
 
-The project allowed me to develop my TDD skills and I wanted to implement my learning of dependancy injection and data structures. I created an interface called ISeatAllocationService which would allocate seats as per the requirements from A1 to C5 from a stack. If in the future if a new seat allocation is needed like seat selection or saving in a data store it could implement the interface.  
+The project allowed me to develop my TDD skills and I wanted to implement my learning of dependancy injection and data structures. I created an interface called ISeatAllocationService which would allocate seats as per the requirements from A1 to C5 from a stack. If in the future a new seat allocation is needed like seat selection or persisting to a data store it could implement the interface.  
 
 I choose to keep the project simple without creating a seat class and holding information in strings to start with.
 
@@ -43,3 +43,4 @@ Exceptions I implemented was SeatException.
 * Implement appropriate classes like Seat.
 * Persist data in database.
 * Implement a different Seat Allocation Service for seat selection.
+* Implement a clearer folder structure seperating layers
